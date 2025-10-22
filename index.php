@@ -1,0 +1,17 @@
+<?php
+// Memuat file konfigurasi
+require_once '../app/config/config.php';
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+</head>
+<body>
+    <h1>This is my Home Page.</h1>
+    <p>I'm Joshua from Manado.</p>
+    <p>I'm 24 years old this year.</p>
+</body>
+</html>
