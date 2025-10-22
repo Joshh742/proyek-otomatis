@@ -13,5 +13,6 @@ require_once '../app/config/config.php';
     <h1>This is my Home Page.</h1>
     <p>I'm Joshua from Manado.</p>
     <p>I'm 20 years old this year.</p>
+    <p>I'm Mahasiswa Unklab.</p>
 </body>
 </html>
