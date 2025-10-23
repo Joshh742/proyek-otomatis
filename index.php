@@ -11,7 +11,7 @@ require_once '../app/config/config.php';
 </head>
 <body>
     <h1>This is my Home Page.</h1>
-    <p>I'm Andreas from Manado.</p>
+    <p>I'm Timoty from Manado.</p>
     <p>I'm 20 years old this year.</p>
     <p>I'm Dosen Unklab.</p>
 
