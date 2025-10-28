@@ -2,8 +2,8 @@
 require_once './app/config/config.php';
 
 // ATUR USERNAME DAN PASSWORD ANDA DI SINI
-$username = 'devops';
-$password = 'Devops@21'; // Ganti dengan password yang kuat
+$username = 'joshua';
+$password = 'Joshua@05'; // Ganti dengan password yang kuat
 
 // Hash password
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
