@@ -47,8 +47,8 @@ $stmt = $pdo->query('SELECT nama, jurusan FROM mahasiswa ORDER BY nama ASC');
     <table>
         <thead>
             <tr>
-                <th>name</th>
-                <th>faculty</th>
+                <th>nama </th>
+                <th>fakultas</th>
             </tr>
         </thead>
         <tbody>
