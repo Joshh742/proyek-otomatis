@@ -18,7 +18,7 @@ $stmt = $pdo->query('SELECT nama, jurusan FROM mahasiswa ORDER BY nama ASC');
     </style>
 </head>
 <body>
-    <h1>Daftar Mahasiswa dari Database MySQL</h1>
+    <h1>Daftar Mahasiswa dari Tabel Database MySQL</h1>
 
     <table>
         <thead>
