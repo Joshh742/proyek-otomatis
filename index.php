@@ -11,15 +11,39 @@ $stmt = $pdo->query('SELECT nama, jurusan FROM mahasiswa ORDER BY nama ASC');
 <head>
     <title>Daftar Mahasiswa</title>
     <style>
-        body { font-family: sans-serif; margin: 40px; }
-        table { border-collapse: collapse; width: 400px; }
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-        th { background-color: #f4f4f4; }
+        
+        body { 
+            font-family: sans-serif; 
+            margin: 40px; 
+            text-align: center; 
+        }
+        table { 
+            border-collapse: collapse; 
+            width: 500px; 
+            margin: 20px auto; 
+        }
+        th, td { 
+            border: 1px solid #ccc; 
+            padding: 10px; 
+            text-align: left; 
+        }
+        th { 
+            background-color: #f4f4f4; 
+        }
+        img.logo {
+            width: 150px; 
+            height: auto; 
+            margin-bottom: 20px; 
+        }
+    
     </style>
 </head>
 <body>
-    <h1>Daftar Mahasiswa dari Tabel Database MySQL</h1>
+    
+    <img src="images\logo_unklab.png" alt="Logo Universitas Klabat" class="logo">
 
+    <h1>Daftar Mahasiswa dari Tabel Database MySQL</h1>
+    
     <table>
         <thead>
             <tr>
@@ -29,7 +53,7 @@ $stmt = $pdo->query('SELECT nama, jurusan FROM mahasiswa ORDER BY nama ASC');
         </thead>
         <tbody>
             <?php
-            // 3. Loop melalui setiap baris data dan menampilkannya sebagai baris tabel
+            
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 echo "<tr>";
                 echo "<td>" . htmlspecialchars($row['nama']) . "</td>";
