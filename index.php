@@ -1,5 +1,17 @@
 <?php
-// 1. MEMUAT KONFIGURASI DAN KONEKSI DATABASE
+// SELALU MULAI SESI DI ATAS
+session_start();
+
+// 1. PASANG PENJAGA (SECURITY CHECK)
+// Jika tidak ada session 'user_id' (artinya belum login),
+// lempar pengguna kembali ke halaman login.
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit; // Hentikan eksekusi skrip
+}
+
+// 2. MEMUAT KONFIGURASI DAN KONEKSI DATABASE
+// (Hanya akan dieksekusi jika sudah lolos penjaga di atas)
 require_once './app/config/config.php';
 
 // VARIABEL UNTUK EDIT FORM
