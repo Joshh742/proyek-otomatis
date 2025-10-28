@@ -156,6 +156,12 @@ $stmt = $pdo->query('SELECT * FROM mahasiswa ORDER BY nama ASC');
     </style>
 </head>
 <body>
+    <div class="container">
+        
+    <div style="text-align: right; margin-bottom: 20px;">
+        Halo, <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong>!
+        <a href="logout.php" style="margin-left: 15px;">Logout</a>
+    </div>
 
     <div class="container"> <table>
             <thead>
