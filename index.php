@@ -1,26 +1,18 @@
-<?php
-// SELALU MULAI SESI DI ATAS
+<?phpw
 session_start();
 
-// 1. PASANG PENJAGA (SECURITY CHECK)
-// Jika tidak ada session 'user_id' (artinya belum login),
-// lempar pengguna kembali ke halaman login.
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
-    exit; // Hentikan eksekusi skrip
+    exit; 
 }
 
-// 2. MEMUAT KONFIGURASI DAN KONEKSI DATABASE
-// (Hanya akan dieksekusi jika sudah lolos penjaga di atas)
 require_once './app/config/config.php';
 
-// VARIABEL UNTUK EDIT FORM
 $isEditing = false;
 $editData = ['id' => '', 'nama' => '', 'jurusan' => ''];
 
-// =============================================
-// BAGIAN 1: LOGIKA CRUD (PROSES C, U, D)
-// =============================================
+// BAGIAN 1: LOGIKA CRUD 
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action']) && $_POST['action'] === 'create') {
         $nama = $_POST['nama']; $jurusan = $_POST['jurusan'];
@@ -52,9 +44,8 @@ if (isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['id'])) 
     $stmt->execute(['id' => $id]);
     $editData = $stmt->fetch(PDO::FETCH_ASSOC);
 }
-// =============================================
 // BAGIAN 2: TAMPILKAN DATA (READ)
-// =============================================
+
 $stmt = $pdo->query('SELECT * FROM mahasiswa ORDER BY nama ASC');
 ?>
 
@@ -63,7 +54,6 @@ $stmt = $pdo->query('SELECT * FROM mahasiswa ORDER BY nama ASC');
 <head>
     <title>CRUD Mahasiswa</title>
     <style>
-        /* === PERUBAHAN CSS DIMULAI DI SINI === */
         
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -71,20 +61,19 @@ $stmt = $pdo->query('SELECT * FROM mahasiswa ORDER BY nama ASC');
             background-color: #f9f9f9;
         }
         
-        /* Kontainer utama untuk menengahkan konten */
         .container {
-            width: 800px; /* Lebar konten */
-            margin: 40px auto; /* Otomatis menengahkan */
+            width: 800px; 
+            margin: 40px auto; 
             text-align: center;
         }
 
         table { 
             border-collapse: collapse; 
-            width: 100%; /* Lebar tabel 100% dari kontainer */
+            width: 100%; 
             margin: 20px auto;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             border-radius: 8px;
-            overflow: hidden; /* Untuk merapikan border-radius */
+            overflow: hidden; 
         }
         
         th, td { 
@@ -93,14 +82,12 @@ $stmt = $pdo->query('SELECT * FROM mahasiswa ORDER BY nama ASC');
             text-align: left; 
         }
 
-        /* Header Tabel Biru */
         thead th {
-            background-color: #2c3e50; /* Warna biru navy gelap */
+            background-color: #2c3e50; 
             color: white;
             border-bottom: 0;
         }
         
-        /* Baris tabel ganjil genap (Zebra-striping) */
         tbody tr {
             background-color: #ffffff;
         }
@@ -108,18 +95,16 @@ $stmt = $pdo->query('SELECT * FROM mahasiswa ORDER BY nama ASC');
             background-color: #f7f7f7;
         }
         
-        /* Ikon Aksi (Edit & Hapus) */
         td.actions {
             text-align: center;
         }
         td.actions a {
             text-decoration: none;
-            font-size: 1.5em; /* Memperbesar ikon emoji */
+            font-size: 1.5em; 
             margin: 0 8px;
             cursor: pointer;
         }
 
-        /* Styling Form */
         form { 
             width: 100%; 
             margin: 40px auto; 
@@ -128,31 +113,28 @@ $stmt = $pdo->query('SELECT * FROM mahasiswa ORDER BY nama ASC');
             border: 1px solid #ddd; 
             border-radius: 8px; 
             text-align: left; 
-            box-sizing: border-box; /* Pastikan padding tidak merusak lebar */
+            box-sizing: border-box; 
         }
         form div { margin-bottom: 15px; }
         form label { display: block; margin-bottom: 5px; font-weight: bold; }
         form input[type="text"] { width: 95%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; }
         
-        /* Tombol Submit "Tambah Mahasiswa" */
         button[type="submit"] { 
             padding: 12px 25px; 
-            background-color: #b0b0b0; /* Warna abu-abu */
+            background-color: #b0b0b0; 
             color: white; 
             border: none; 
-            border-radius: 20px; /* Membuat bulat */
+            border-radius: 20px; 
             cursor: pointer; 
             font-size: 1em;
             font-weight: bold;
             display: block;
-            margin: 20px auto 0 auto; /* Menengahkan tombol */
+            margin: 20px auto 0 auto; 
         }
         
-        /* Tombol Update & Batal */
         button.update { background-color: #28a745; border-radius: 20px; }
         a.cancel { color: #6c757d; margin-left: 10px; }
 
-        /* === PERUBAHAN CSS BERAKHIR DI SINI === */
     </style>
 </head>
 <body>
@@ -177,7 +159,6 @@ $stmt = $pdo->query('SELECT * FROM mahasiswa ORDER BY nama ASC');
                     echo "<td>" . htmlspecialchars($row['nama']) . "</td>";
                     echo "<td>" . htmlspecialchars($row['jurusan']) . "</td>";
                     
-                    // Ganti teks dengan Ikon Emoji
                     echo '<td class="actions"><a href="index.php?action=edit&id=' . $row['id'] . '">✏️</a></td>';
                     echo '<td class="actions"><a href="index.php?action=delete&id=' . $row['id'] . '" onclick="return confirm(\'Yakin hapus data ini?\');">🗑️</a></td>';
                     
@@ -218,7 +199,7 @@ $stmt = $pdo->query('SELECT * FROM mahasiswa ORDER BY nama ASC');
                     <label for="jurusan">Jurusan:</label>
                     <input type="text" id="jurusan" name="jurusan" placeholder="Masukkan jurusan..." required>
                 </div>
-                <button type="submit">Tambah Mahasiswa</button>
+                <button type="submit">tambah student</button>
             </form>
 
         <?php endif; ?>
