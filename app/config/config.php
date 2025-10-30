@@ -1,5 +1,5 @@
 <?php
-// --- KONEKSI DATABASE --- //
+// KONEKSI DATABASE //
 $db_host = 'localhost';
 $db_name = 'proyek_otomatis_db';
 $db_user = 'proyek_user';
