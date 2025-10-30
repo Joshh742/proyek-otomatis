@@ -199,7 +199,7 @@ $stmt = $pdo->query('SELECT * FROM mahasiswa ORDER BY nama ASC');
                     <label for="jurusan">Jurusan:</label>
                     <input type="text" id="jurusan" name="jurusan" placeholder="Masukkan jurusan..." required>
                 </div>
-                <button type="submit">tambah student</button>
+                <button type="submit">Tambah Mahasiswa</button>
             </form>
 
         <?php endif; ?>
