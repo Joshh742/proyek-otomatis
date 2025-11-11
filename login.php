@@ -6,8 +6,7 @@ require_once './app/config/config.php';
 
 $error_message = '';
 
-// --- SENSOR DETEKSI (TAMBAHAN) ---
-// Fungsi ini mengecek kata kunci SQLi yang umum
+// SENSOR DETEKSI (TAMBAHAN)
 function is_suspicious($input) {
     $suspicious_keywords = [
         "' OR '",
@@ -24,8 +23,6 @@ function is_suspicious($input) {
     }
     return false;
 }
-// --- END SENSOR ---
-
 
 // 2. PINDAH KE HALAMAN UTAMA (JIKA SUDAH LOGIN)
 if (isset($_SESSION['user_id'])) {
@@ -38,34 +35,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
     
-    // KODE AMAN ANDA (SUDAH BENAR)
     $sql = "SELECT * FROM users WHERE username = :username";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(['username' => $username]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     
-    // KODE VERIFIKASI ANDA (SUDAH BENAR)
     if ($user && password_verify($password, $user['password_hash'])) {
-        // JIKA LOGIN BERHASIL
+        // LOGIN BERHASIL
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
         
         header("Location: index.php");
         exit;
     } else {
-        // JIKA LOGIN GAGAL
+        // LOGIN GAGAL
         $error_message = "Username atau password salah!";
         
-        // --- LOGIKA PENCATATAN SERANGAN (TAMBAHAN) ---
-        // Cek apakah input username tadi mencurigakan
+        // Cek Input Username
         if (is_suspicious($username)) {
             $ip_pelaku = $_SERVER['REMOTE_ADDR'];
             $log_entry = date('Y-m-d H:i:s') . " | IP: $ip_pelaku | Payload: $username\n";
             
-            // Tulis ke log file yang sudah kita siapkan
+            // Simpan ke Log File
            file_put_contents('/var/www/html/unkpresent/logs/sqli_attempts.log', $log_entry, FILE_APPEND);
         }
-        // --- END LOGIKA PENCATATAN ---
     }
 }
 ?>
