@@ -6,7 +6,28 @@ require_once './app/config/config.php';
 
 $error_message = '';
 
-// 2. PINDAH KE HALAMAN UTAMA
+// --- SENSOR DETEKSI (TAMBAHAN) ---
+// Fungsi ini mengecek kata kunci SQLi yang umum
+function is_suspicious($input) {
+    $suspicious_keywords = [
+        "' OR '",
+        "--",
+        "UNION SELECT",
+        "DROP TABLE",
+        "'='",
+        "/*"
+    ];
+    foreach ($suspicious_keywords as $keyword) {
+        if (stripos($input, $keyword) !== false) {
+            return true;
+        }
+    }
+    return false;
+}
+// --- END SENSOR ---
+
+
+// 2. PINDAH KE HALAMAN UTAMA (JIKA SUDAH LOGIN)
 if (isset($_SESSION['user_id'])) {
     header("Location: index.php");
     exit;
@@ -17,19 +38,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
     
+    // KODE AMAN ANDA (SUDAH BENAR)
     $sql = "SELECT * FROM users WHERE username = :username";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(['username' => $username]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     
+    // KODE VERIFIKASI ANDA (SUDAH BENAR)
     if ($user && password_verify($password, $user['password_hash'])) {
+        // JIKA LOGIN BERHASIL
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
         
         header("Location: index.php");
         exit;
     } else {
+        // JIKA LOGIN GAGAL
         $error_message = "Username atau password salah!";
+        
+        // --- LOGIKA PENCATATAN SERANGAN (TAMBAHAN) ---
+        // Cek apakah input username tadi mencurigakan
+        if (is_suspicious($username)) {
+            $ip_pelaku = $_SERVER['REMOTE_ADDR'];
+            $log_entry = date('Y-m-d H:i:s') . " | IP: $ip_pelaku | Payload: $username\n";
+            
+            // Tulis ke log file yang sudah kita siapkan
+           file_put_contents('/var/www/html/unkpresent/logs/sqli_attempts.log', $log_entry, FILE_APPEND);
+        }
+        // --- END LOGIKA PENCATATAN ---
     }
 }
 ?>
@@ -131,7 +167,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 <body>
-    
     <form action="login.php" method="POST">
         <h2>Selamat Datang</h2>
         
@@ -154,6 +189,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             Pelajari cara kami menangani data Anda
         </div>
     </form>
-
 </body>
 </html>
