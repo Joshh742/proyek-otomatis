@@ -63,7 +63,8 @@ $stmt = $pdo->query('SELECT * FROM mahasiswa ORDER BY nama ASC');
         
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.85) 0%, rgba(118, 75, 162, 0.85) 100%),
+                        url('./images/opah.jpg') center/cover no-repeat fixed;
             min-height: 100vh;
             padding: 20px;
             position: relative;
@@ -148,6 +149,13 @@ $stmt = $pdo->query('SELECT * FROM mahasiswa ORDER BY nama ASC');
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
+        }
+
+        .logo-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 3px;
         }
 
         .header h1 {
@@ -395,7 +403,9 @@ $stmt = $pdo->query('SELECT * FROM mahasiswa ORDER BY nama ASC');
         <!-- Header -->
         <div class="header">
             <div class="header-left">
-                <div class="logo-header">💊</div>
+                <div class="logo-header">
+                    <img src="./images/logo_unklab.png" alt="Logo Kampus">
+                </div>
                 <h1>Sistem Inventaris Obat</h1>
             </div>
             <div class="user-info">

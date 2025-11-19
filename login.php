@@ -81,7 +81,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             justify-content: center; 
             align-items: center; 
             min-height: 100vh; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%), 
+                        url('./images/opah.jpg') center/cover no-repeat fixed;
             position: relative;
             overflow: hidden;
         }
@@ -166,9 +167,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             50% { transform: scale(1.05); }
         }
 
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 5px;
+        }
+
         .logo::before {
-            content: "💊";
-            font-size: 45px;
+            display: none;
         }
         
         h2 { 
@@ -297,7 +304,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="login-container">
         <form action="login.php" method="POST">
             <div class="header-section">
-                <div class="logo"></div>
+                <div class="logo">
+                    <img src="./images/logo_unklab.png" alt="Logo Kampus">
+                </div>
                 <h2>Sistem Inventaris Obat</h2>
                 <p class="subtitle">Kelola stok obat dengan mudah</p>
             </div>
