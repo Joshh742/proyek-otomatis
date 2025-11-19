@@ -161,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <form action="login.php" method="POST">
-        <h2>Selamat Datang</h2>
+        <h2>Salamalekum</h2>
         
         <div>
             <label for="username">Username</label> 
