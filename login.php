@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             align-items: center; 
             min-height: 100vh; 
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%), 
-                        url('./images/opah.jpg') center/cover no-repeat fixed;
+                        url('./images/beckground2.avif') center/cover no-repeat fixed;
             position: relative;
             overflow: hidden;
         }

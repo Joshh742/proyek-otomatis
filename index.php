@@ -64,7 +64,7 @@ $stmt = $pdo->query('SELECT * FROM mahasiswa ORDER BY nama ASC');
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.85) 0%, rgba(118, 75, 162, 0.85) 100%),
-                        url('./images/opah.jpg') center/cover no-repeat fixed;
+                        url('./images/beckground1.jpg') center/cover no-repeat fixed;
             min-height: 100vh;
             padding: 20px;
             position: relative;
