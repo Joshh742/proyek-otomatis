@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = "Konfirmasi password tidak cocok!";
         $message_type = "error";
     } else {
-        // Cek apakah username sudah ada
+        // Cek username 
         $checkSql = "SELECT id FROM users WHERE username = :username";
         $checkStmt = $pdo->prepare($checkSql);
         $checkStmt->execute(['username' => $username]);
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $message = "Username sudah digunakan, pilih yang lain!";
             $message_type = "error";
         } else {
-            // ENKRIPSI PASSWORD (PENTING!)
+            // ENKRIPSI PASSWORD 
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
             // Masukkan ke Database
@@ -46,7 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($stmt->execute(['username' => $username, 'password_hash' => $password_hash])) {
                 $message = "Registrasi berhasil! Silakan login.";
                 $message_type = "success";
-                // Opsional: Redirect langsung ke login setelah beberapa detik
                 header("refresh:2;url=login.php");
             } else {
                 $message = "Terjadi kesalahan saat mendaftar.";
@@ -63,7 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <title>Registrasi - Sistem Inventaris Obat</title>
     <style>
-        /* MENGGUNAKAN STYLE YANG SAMA PERSIS DENGAN LOGIN.PHP */
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body { 
@@ -108,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         .header-section { text-align: center; margin-bottom: 25px; }
         .logo {
-            width: 70px; height: 70px; /* Sedikit diperkecil agar muat */
+            width: 70px; height: 70px; 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             margin: 0 auto 15px; animation: pulse 2s infinite;
@@ -184,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="password" id="confirm_password" name="confirm_password" placeholder="Ulangi password" required>
             </div>
 
-            <button type="submit">📝 Daftar Sekarang</button>
+            <button type="submit">Daftar Sekarang</button>
 
             <?php if ($message): ?>
                 <div class="message <?php echo $message_type; ?>">

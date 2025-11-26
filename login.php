@@ -87,7 +87,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             overflow: hidden;
         }
 
-        /* Animasi Latar Belakang */
         .bg-animation {
             position: absolute;
             width: 100%;
@@ -292,7 +291,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 <body>
-    <!-- Animasi Latar Belakang -->
     <div class="bg-animation">
         <div class="medical-icon">⚕️</div>
         <div class="medical-icon">💉</div>
@@ -319,7 +317,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="password">Password</label> 
                 <input type="password" id="password" name="password" placeholder="Masukkan password" required>
             </div>
-            <button type="submit">🔐 Login Sekarang</button>
+            <button type="submit">Login Sekarang</button>
 
             <?php if ($error_message): ?>
                 <p class="error"><?php echo $error_message; ?></p>
@@ -330,7 +328,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             
             <div class="footer-text">
-                🔒 Data Anda aman dan terenkripsi.<br>
+                Data Anda aman dan terenkripsi.<br>
                 Sistem manajemen farmasi terpercaya.
             </div>
         </form>
