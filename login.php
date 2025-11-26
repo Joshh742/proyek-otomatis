@@ -325,6 +325,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <p class="error"><?php echo $error_message; ?></p>
             <?php endif; ?>
 
+            <div style="text-align: center; margin-top: 20px; font-size: 0.9em; color: #666;">
+                Belum punya akun? <a href="register.php" style="color: #667eea; text-decoration: none; font-weight: 700;">Daftar disini</a>
+            </div>
+            
             <div class="footer-text">
                 🔒 Data Anda aman dan terenkripsi.<br>
                 Sistem manajemen farmasi terpercaya.
