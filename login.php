@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login - Sistem Inventaris obat terkarang</title>
+    <title>Login - Sistem Inventaris obat</title>
     <style>
         * {
             margin: 0;
@@ -305,7 +305,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="logo">
                     <img src="./images/logo_unklab.png" alt="Logo Kampus">
                 </div>
-                <h2>Sistem Inventaris Obat</h2>
+                <h2>Sistem Inventaris Obat Terlarang</h2>
                 <p class="subtitle">Kelola stok obat dengan mudah</p>
             </div>
             
