@@ -317,7 +317,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="password">Password</label> 
                 <input type="password" id="password" name="password" placeholder="Masukkan password" required>
             </div>
-            <button type="submit">Login Sekarang</button>
+            <button type="submit">Login</button>
 
             <?php if ($error_message): ?>
                 <p class="error"><?php echo $error_message; ?></p>
