@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 require_once './app/config/config.php';
 
 $isEditing = false;
-// TAMBAHAN: Inisialisasi data stok default
+// Inisialisasi data stok default
 $editData = ['id' => '', 'nama' => '', 'jurusan' => '', 'stok' => ''];
 
 // BAGIAN 1: LOGIKA CRUD 
@@ -19,9 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action']) && $_POST['action'] === 'create') {
         $nama = $_POST['nama']; 
         $jurusan = $_POST['jurusan'];
-        $stok = $_POST['stok']; // Ambil data stok
+        $stok = $_POST['stok']; 
 
-        // Query INSERT ditambah kolom stok
+        // Query INSERT 
         $sql = "INSERT INTO mahasiswa (nama, jurusan, stok) VALUES (:nama, :jurusan, :stok)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute(['nama' => $nama, 'jurusan' => $jurusan, 'stok' => $stok]);
@@ -29,14 +29,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: index.php"); exit;
     }
     
-    // 2. LOGIKA UPDATE DATA (UPDATE)
+    // 2. UPDATE DATA 
     if (isset($_POST['action']) && $_POST['action'] === 'update') {
         $id = $_POST['id']; 
         $nama = $_POST['nama']; 
         $jurusan = $_POST['jurusan'];
-        $stok = $_POST['stok']; // Ambil data stok
+        $stok = $_POST['stok']; 
 
-        // Query UPDATE ditambah kolom stok
+        // Query UPDATE 
         $sql = "UPDATE mahasiswa SET nama = :nama, jurusan = :jurusan, stok = :stok WHERE id = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->execute(['nama' => $nama, 'jurusan' => $jurusan, 'stok' => $stok, 'id' => $id]);
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// 3. LOGIKA HAPUS (DELETE)
+// 3. LOGIKA HAPUS 
 if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['id'])) {
     $id = $_GET['id'];
     $sql = "DELETE FROM mahasiswa WHERE id = :id";
@@ -54,7 +54,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['id'])
     header("Location: index.php"); exit;
 }
 
-// 4. LOGIKA PERSIAPAN EDIT (READ SINGLE)
+// 4. LOGIKA PERSIAPAN EDIT 
 if (isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['id'])) {
     $isEditing = true;
     $id = $_GET['id'];
@@ -64,7 +64,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['id'])) 
     $editData = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-// BAGIAN 2: TAMPILKAN SEMUA DATA (READ ALL)
+// BAGIAN 2: TAMPILKAN SEMUA DATA 
 $stmt = $pdo->query('SELECT * FROM mahasiswa ORDER BY nama ASC');
 ?>
 
@@ -74,7 +74,6 @@ $stmt = $pdo->query('SELECT * FROM mahasiswa ORDER BY nama ASC');
     <meta charset="UTF-8">
     <title>Sistem Inventaris Obat</title>
     <style>
-        /* (Style lama Anda tetap dipertahankan, saya hanya menambah sedikit CSS untuk stok) */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body { 
@@ -130,7 +129,7 @@ $stmt = $pdo->query('SELECT * FROM mahasiswa ORDER BY nama ASC');
         td.actions a { text-decoration: none; font-size: 1.4em; margin: 0 8px; cursor: pointer; display: inline-block; transition: all 0.3s ease; }
         td.actions a:hover { transform: scale(1.3); }
 
-        /* Style Khusus Stok */
+        /* Style Stok */
         .stok-badge {
             display: inline-block;
             padding: 5px 12px;
@@ -146,7 +145,7 @@ $stmt = $pdo->query('SELECT * FROM mahasiswa ORDER BY nama ASC');
         /* Form */
         .form-container { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); padding: 35px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); }
         form h2 { margin-bottom: 25px; font-size: 1.6em; color: #333; font-weight: 700; text-align: center; }
-        /* Grid Layout untuk Form agar muat 3 kolom */
+        /* Grid Layout untuk Form  */
         .form-grid { display: grid; grid-template-columns: 2fr 1.5fr 1fr; gap: 20px; margin-bottom: 25px; }
         .form-group { display: flex; flex-direction: column; }
         form label { margin-bottom: 10px; font-weight: 600; color: #555; font-size: 0.95em; }
@@ -184,7 +183,7 @@ $stmt = $pdo->query('SELECT * FROM mahasiswa ORDER BY nama ASC');
         <!-- Tabel Data -->
         <div class="table-container">
             <div class="table-header">
-                <h2>📋 Daftar Stok Obat</h2>
+                <h2>Daftar Stok Obat</h2>
                 <div class="stats">
                     <div class="stat-box">📦 Total Item: <?php echo $stmt->rowCount(); ?></div>
                 </div>
@@ -195,14 +194,13 @@ $stmt = $pdo->query('SELECT * FROM mahasiswa ORDER BY nama ASC');
                     <tr>
                         <th>💊 Nama Obat</th>
                         <th>🏷️ Kategori</th>
-                        <th>📦 Stok</th> <!-- KOLOM BARU -->
+                        <th>📦 Stok</th> 
                         <th colspan="2" style="text-align: center;">⚙️ Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        // Logika Warna Stok
                         $stokClass = 'stok-aman';
                         if ($row['stok'] == 0) { $stokClass = 'stok-habis'; }
                         elseif ($row['stok'] < 10) { $stokClass = 'stok-sedikit'; }
@@ -228,56 +226,53 @@ $stmt = $pdo->query('SELECT * FROM mahasiswa ORDER BY nama ASC');
             <?php if ($isEditing): ?>
                 <!-- FORM EDIT -->
                 <form action="index.php" method="POST">
-                    <h2>✏️ Edit Data & Stok</h2>
+                    <h2>Edit Data & Stok</h2>
                     <input type="hidden" name="action" value="update">
                     <input type="hidden" name="id" value="<?php echo htmlspecialchars($editData['id']); ?>">
                     
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="nama">💊 Nama Obat:</label>
+                            <label for="nama">Nama Obat:</label>
                             <input type="text" id="nama" name="nama" value="<?php echo htmlspecialchars($editData['nama']); ?>" required>
                         </div>
                         <div class="form-group">
-                            <label for="jurusan">🏷️ Kategori:</label>
+                            <label for="jurusan">Kategori:</label>
                             <input type="text" id="jurusan" name="jurusan" value="<?php echo htmlspecialchars($editData['jurusan']); ?>" required>
                         </div>
-                        <!-- INPUT STOK DI EDIT -->
                         <div class="form-group">
-                            <label for="stok">📦 Stok:</label>
+                            <label for="stok">Stok:</label>
                             <input type="number" id="stok" name="stok" value="<?php echo htmlspecialchars($editData['stok']); ?>" min="0" required>
                         </div>
                     </div>
                     
                     <div class="button-group">
-                        <button type="submit" class="update">✅ Simpan Perubahan</button>
-                        <a href="index.php" class="cancel">❌ Batal</a>
+                        <button type="submit" class="update">Simpan Perubahan</button>
+                        <a href="index.php" class="cancel">Batal</a>
                     </div>
                 </form>
 
             <?php else: ?>
-                <!-- FORM TAMBAH BARU -->
                 <form action="index.php" method="POST">
-                    <h2>➕ Tambah Obat Baru</h2>
+                    <h2>Tambah Obat Baru</h2>
                     <input type="hidden" name="action" value="create">
                     
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="nama">💊 Nama Obat:</label>
+                            <label for="nama">Nama Obat:</label>
                             <input type="text" id="nama" name="nama" placeholder="Contoh: Paracetamol" required>
                         </div>
                         <div class="form-group">
-                            <label for="jurusan">🏷️ Kategori:</label>
+                            <label for="jurusan">Kategori:</label>
                             <input type="text" id="jurusan" name="jurusan" placeholder="Contoh: Antibiotik" required>
                         </div>
-                        <!-- INPUT STOK DI TAMBAH BARU -->
                         <div class="form-group">
-                            <label for="stok">📦 Stok Awal:</label>
+                            <label for="stok">Stok Awal:</label>
                             <input type="number" id="stok" name="stok" placeholder="0" min="0" required>
                         </div>
                     </div>
                     
                     <div class="button-group">
-                        <button type="submit">➕ Tambah Obat</button>
+                        <button type="submit">Tambah Obat</button>
                     </div>
                 </form>
             <?php endif; ?>
