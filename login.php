@@ -305,7 +305,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="logo">
                     <img src="./images/logo_unklab.png" alt="Logo Kampus">
                 </div>
-                <h2>Sistem Inventaris Obat Terlarang</h2>
+                <h2>Ivan Kaseger</h2>
                 <p class="subtitle">Kelola stok obat dengan mudah</p>
             </div>
             
